@@ -3,10 +3,34 @@
 import React from 'react';
 import Navbar from '@/components/navbar';
 import IntroText from '@/components/intro-text';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function Home() {
+  const images = [
+    '/landing.jpg',
+    '/landing1.jpg',
+    '/landing2.jpg',
+    '/landing3.jpg',
+  ];
+  const captions = [
+    'Caption for landing',
+    'Caption for landing1',
+    'Caption for landing2',
+    'Caption for landing3',
+  ];
+
+  const totalCount = images.length; // update based on the total number of images
+
+  const [index, setIndex] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % totalCount);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [totalCount]);
+
   return (
     <div>
       <Navbar />
@@ -27,18 +51,58 @@ export default function Home() {
                     animate={{ y: 0, opacity: 1 }} // Image ends at its original position and fully opaque
                     transition={{ type: 'spring', stiffness: 50, damping: 20 }} // transition specifications
                   >
-                    <Image
-                      src="/landing.jpg"
-                      alt=""
-                      width={2432}
-                      height={1442}
-                    />
-                    <div className="flex justify-between">
-                      <h1 className="text-3xl">Very Dashing Pics</h1>
-                      <h1 className="text-3xl">1/4</h1>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        <Image
+                          src={images[index]}
+                          alt=""
+                          width={1016}
+                          height={150}
+                          className="w-full h-[50rem] object-cover"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+
+                    <div className="flex justify-between px-12 mt-6">
+                      {/* <h1 className="text-3xl">Very Dashing Pics</h1> */}
+                      <AnimatePresence mode="wait">
+                        <motion.h1
+                          key={index}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="text-3xl"
+                        >
+                          {captions[index]}
+                        </motion.h1>
+                      </AnimatePresence>
+                      <div className="flex">
+                        <motion.span
+                          key={index}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="text-3xl flex"
+                        >
+                          {index + 1}
+                        </motion.span>
+                        <span className="text-3xl">/{totalCount}</span>
+                      </div>
                     </div>
                   </motion.div>
                 </div>
+              </div>
+
+              <div className="mt-12">
+                <Image src="/grid1.jpg" alt="" width={300} height={300} />
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ export default function IntroText({}: Props) {
         },
       }}
     >
-      <div className="px-8">
+      <div className="px-12">
         <motion.h1
           className="font-display text-stone-400 text-3xl tracking-[-0.02em] drop-shadow-sm md:text-6xl md:leading-[5rem]"
           variants={FADE_DOWN_ANIMATION_VARIANTS}

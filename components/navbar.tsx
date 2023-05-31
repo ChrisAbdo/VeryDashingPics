@@ -29,7 +29,7 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <div className="-m-1.5 p-1.5 ">
             <span className="sr-only">Your Company</span>
-            <h1 className="text-2xl font-bold  sm:text-3xl sm:truncate">
+            <h1 className="text-2xl font-bold text-black  sm:text-3xl sm:truncate">
               Very Dashing
             </h1>
           </div>
